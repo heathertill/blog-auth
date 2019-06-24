@@ -1,0 +1,67 @@
+$theme-colors: (
+    "success": rgba(211, 223, 219, 1),
+    "warning": rgba(236, 216, 177, 1),
+    "info": rgba(58, 161, 63, 0.87)
+);
+
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+$font-head: 'Sedgwick Ave', cursive;
+
+$font-title: 'Loved by the King', cursive;
+
+.covalence-blue {
+    color: #0091ea;
+}
+
+.card-img-wrapper .card-img-top {
+    z-index: 0;
+}
+
+.card-img-wrapper .card-text {
+    text-align: center;
+    margin-top: 10%;
+    margin-left: 22%;
+    margin-right: 22%;
+    position: absolute;
+    z-index: 1;
+    font-size: 1.8em;
+    font-family: $font-title;
+}
+
+.blog-title-img {
+    width: 50%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+body {
+    background: url('https://i2.wp.com/background4free.com/download/white_textile_wallpaper_427466034.jpg?q=100');
+   
+}
+.header {
+    font-size: 5.2em;
+    font-family: $font-head;
+}
+
+.blog-head {
+  color: white
+}
+
+.aboutdiv {
+    font-size: 1.25em
+}
+
+.card-title {
+   font-family: $font-title;
+}
+
+.show-tags {
+    height: 375px;
+}
+
+.blog-content {
+    width: 90%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
