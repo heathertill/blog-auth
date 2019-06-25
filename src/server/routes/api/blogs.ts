@@ -5,6 +5,7 @@ import { RequestHandler } from 'express-serve-static-core';
 
 const router = express.Router();
 
+// middleware to check your req object for a user property or a specific role on that property
 const isAdmin: RequestHandler = (req, res, next) => {
     if (!req.user || req.user.role !== 'admin') {
         return res.sendStatus(401)
@@ -24,12 +25,11 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/:id?', isAdmin, async (req, res, next) => {
-    console.log('api/blogs/test3');
     let id = req.params.id
     try {
-            let blog = await DB.Blogs.one(id)
+        let blog = await DB.Blogs.one(id)
             // the [0] gets the blog object from the array
-            res.json(((blog)[0])[0]);
+            res.json(((blog)[0]));
         } catch (err) {
             console.log(err);
             res.sendStatus(500);

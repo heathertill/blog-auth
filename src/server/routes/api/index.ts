@@ -8,6 +8,7 @@ import tagsRouter from './tags';
 
 const router = express.Router();
 
+// this needs to be above all other routers to verify
 router.use((req, res, next) => {
     passport.authenticate('bearer', { session: false }, (err, user, info) => {
         if (user) req.user = user;
