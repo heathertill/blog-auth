@@ -6,7 +6,6 @@ import { RequestHandler } from 'express-serve-static-core';
 const router = express.Router();
 
 const isAdmin: RequestHandler = (req, res, next) => {
-    console.log('api/blogs/test1', req.user);
     if (!req.user || req.user.role !== 'admin') {
         return res.sendStatus(401)
     } else {
@@ -15,10 +14,8 @@ const isAdmin: RequestHandler = (req, res, next) => {
 };
 
 router.get('/', async (req, res, next) => {
-    console.log('api/blogs/test2');
     try {
         let blogs = await DB.Blogs.all();
-        console.log('api/blogs/blogs');
         res.json(blogs);
     } catch (err) {
         console.log(err);

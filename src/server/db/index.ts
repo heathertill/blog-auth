@@ -9,7 +9,7 @@ import AllTags from './queries/allTags';
 import AccessTokens from './queries/accesstokens'
 
 //node - mysql connection pool
-export const pool = mysql.createPool(config);
+export const pool = mysql.createPool(config.mysql);
 
 // reusable query helper method
 export const Query = (query: string, values?: Array<string | number>) => {

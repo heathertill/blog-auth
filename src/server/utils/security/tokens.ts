@@ -14,19 +14,15 @@ export const CreateToken = async(payload: IPayload) => {
 };
 
 export const ValidToken = async (token: string) => {
-    console.log('utils/sec/tokens', token)
     // give jwt the IPayload generic so it can decode it into the kind of payload we need
     let payload: any = <IPayload>jwt.decode(token);
-    console.log('utils/sec/tokens/payload', payload);
     // the [] says i want the property inside the array to be called ...
     // represents [{}] the object inside the array
     // can also access it by payload.accesstokenid[0]
     let [accesstokenid] = await DB.AccessTokens.findOne(payload, token);
-    console.log('utils/sec/tokens/acctokid', accesstokenid)
     if (!accesstokenid) {
         throw new Error('Invalid Token!');
     } else {
-        console.log('utils/sec/tokens/acctokid2', accesstokenid)
         return accesstokenid;
     }
 }

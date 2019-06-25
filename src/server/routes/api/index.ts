@@ -10,7 +10,6 @@ const router = express.Router();
 
 router.use((req, res, next) => {
     passport.authenticate('bearer', { session: false }, (err, user, info) => {
-        console.log('api/ind/user', user)
         if (user) req.user = user;
         return next();
     })(req, res, next);
