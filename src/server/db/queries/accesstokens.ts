@@ -4,7 +4,7 @@ const findOne = async (id: string, token: string) => Query('SELECT * FROM access
 
 const insert = async (userid: number) => Query('INSERT INTO accesstokens (userid) VALUES (?)', [userid]);
 
-const update = async (token: string, id: number) => Query('UPDATE accesstokens SET token = ? WHERE id = ?', [token, id]);
+const update = async (id: number, token: string) => Query('UPDATE accesstokens SET token = ? WHERE id = ?', [token, id]);
 
 export default {
     findOne,

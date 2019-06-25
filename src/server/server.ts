@@ -1,6 +1,11 @@
 import * as path from 'path';
 import * as express from 'express';
-import apiRouter from './routes';
+import * as passport from 'passport';
+
+import './middleware/localstrategy';
+import './middleware/bearerstrategy';
+
+import routes from './routes';
 
 const app = express();
 
@@ -9,7 +14,9 @@ console.log(p);
 
 app.use(express.static(p));
 app.use(express.json());
-app.use('/api', apiRouter);
+app.use(passport.initialize());
+
+app.use(routes);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'))

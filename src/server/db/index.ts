@@ -4,9 +4,9 @@ import config from '../config';
 // table query imports
 import Blogs from './queries/blogs';
 import Tags from './queries/tags';
-import Authors from './queries/authors';
+import Users from './queries/users';
 import AllTags from './queries/allTags';
-import Accesstokens from './queries/accesstokens'
+import AccessTokens from './queries/accesstokens'
 
 //node - mysql connection pool
 export const pool = mysql.createPool(config);
@@ -25,7 +25,7 @@ export const Query = (query: string, values?: Array<string | number>) => {
 export default {
     Blogs,
     Tags,
-    Authors,
+    Users,
     AllTags,
-    Accesstokens
+    AccessTokens
 }
