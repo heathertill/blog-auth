@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as passport from 'passport';
 
-import { CreateToken } from '../../utils/security/tokens';
+import { CreateToken, GenerateExpireDate, IsExpired } from '../../utils/security/tokens';
 
 const router = express.Router();
 

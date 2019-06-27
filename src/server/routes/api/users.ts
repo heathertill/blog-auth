@@ -1,12 +1,11 @@
-import * as express from 'express';
+import { Router } from 'express';
+import queries from '../../db';
 
-import DB from '../../db';
-
-const router = express.Router();
+const router = Router();
 
 router.get('/:name', async (req, res, next) => {
     try {
-        res.json((await DB.Users.getUserId(req.params.name))[0])
+        res.json((await queries.Users.getUserId(req.params.name))[0])
     } catch (err) {
         console.log(err);
         res.sendStatus(500);

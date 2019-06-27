@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { __RouterContext } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Tag } from './OneBlog';
 
@@ -7,6 +8,7 @@ export interface NavbarProps { }
 
 const Navbar: React.SFC<NavbarProps> = () => {
 
+    const { history } = useContext(__RouterContext);
     const [tags, setTags] = useState<Tag[]>([]);
 
     const getTags = async () => {
@@ -25,6 +27,11 @@ const Navbar: React.SFC<NavbarProps> = () => {
 
     function handleSelect(e: React.ChangeEvent<HTMLSelectElement>) {
         setid(e.target.value)
+        if (e.target.value === "0") {
+            return;
+        } else {
+            history.push(`/showTags/${e.target.value}`)
+        }
     };
 
     return (
@@ -45,17 +52,17 @@ const Navbar: React.SFC<NavbarProps> = () => {
                             <select
                                 onChange={handleSelect} value={id}
                                 className="dropdown-item bg-info text-white">
-                                <option className="dropdown-item">Select Tag</option>
+                                <option className="dropdown-item text-white bg-dark">Select Tag</option>
                                 {tags.map(tag => {
                                     return (
-                                        <option className="" key={tag.id} value={tag.id}>{tag.name}</option>
+                                        <option className="bg-dark" key={tag.id} value={tag.id}>{tag.name}</option>
                                     )
                                 })}
                             </select>
                         </li>
-                        <li className="nav-item ">
+                        {/* <li className="nav-item ">
                             <Link to={`/showTags/${id}`} className="text-white  ml-3" >Show Blogs</Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </nav>

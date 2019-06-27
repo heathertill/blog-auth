@@ -2,7 +2,7 @@ import * as passport from 'passport';
 import * as LocalStrategy from 'passport-local';
 
 import { ComparePassword } from '../utils/security/password';
-import DB from '../db';
+import queries from '../db';
 
 // if logged in and have token this adds req.user(user) on the requests
 passport.serializeUser((user, done) => done(null, user));
@@ -15,7 +15,7 @@ passport.use(new LocalStrategy.Strategy({
 }, // email and password are provided by the user at login on frontend
     async (email, password, done) => {
         try {
-            let [user]: any = await DB.Users.findOneByEmail(email);
+            let [user]: any = await queries.Users.findOneByEmail(email);
             if (user && ComparePassword(password, user.password)) {
                 done(null, user);
             } else {

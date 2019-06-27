@@ -26,6 +26,7 @@ const OneBlog: React.FC<OneBlogProps> = ({ history, match: { params: { id } } })
             let r = await fetch(`/api/blogs/${id}`);
             let blog = await r.json();
             setBlog(blog);
+            console.log('cl/comp/one/blog', blog)
         } catch (err) {
             console.log(err)
         }
