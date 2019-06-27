@@ -40,7 +40,7 @@ const Navbar: React.SFC<NavbarProps> = () => {
                 <div className="navbar">
                     <ul className="navbar-nav  justify-content-right">
                         <li className="nav-item">
-                            <Link className="text-white mr-3" to="/add">New Blog</Link>
+                            <Link className="text-white mr-3" to="/add">Admin</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="text-white mr-3" to="/">All Blogs</Link>
