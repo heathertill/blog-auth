@@ -22,8 +22,8 @@ router.get('/', async (req, res, next) => {
         res.sendStatus(500)
     }
 });
-
-router.get('/:id?', isAdmin, async (req, res, next) => {
+// router.get('/:id?', isAdmin, async (req, res, next) => {
+router.get('/:id?', async (req, res, next) => {
     let id = req.params.id
     try {
         let blog = await queries.Blogs.one(id)
