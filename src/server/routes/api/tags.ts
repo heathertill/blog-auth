@@ -15,7 +15,6 @@ router.get('/', async (req, res, next) => {
 router.get('/:blogid', async (req, res, next) => {
     let blogid = req.params.blogid
     try {
-        // res.json(((await db.Tags.getTag(blogid))[0])[0])
         res.json((await queries.Tags.getTag(blogid))[0])
     } catch (err) {
         console.log(err);

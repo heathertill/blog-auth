@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 export interface AllBlogsProps { }
 
@@ -42,7 +43,7 @@ const AllBlogs: React.SFC<AllBlogsProps> = () => {
                                 </div>
                                 <div className="card-body">
                                     <p className="card-text">{blog.name}</p>
-                                    <p className="card-text">{blog._created}</p>
+                                    <p className="card-text">{moment(blog._created).format('MMMM Do, YYYY')}</p>
                                     <Link to={`/blogs/${blog.id}`} className="btn btn-warning shadow btn-block mx-auto" >View Blog</Link>
                                 </div>
                             </div>

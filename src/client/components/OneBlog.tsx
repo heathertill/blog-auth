@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
+import moment from 'moment';
 import { Blog } from './AllBlogs';
 
 export interface OneBlogProps extends RouteComponentProps<{ id: string }> { }
@@ -54,7 +55,7 @@ const OneBlog: React.FC<OneBlogProps> = ({ history, match: { params: { id } } })
                         <h3 className="card-title mb-0">{blog.title}</h3>
                         <p className="card-text ml-2">by {blog.name}</p>
                         <p className="card-text ml-2">{blog.content}</p>
-                        <p className="card-text ml-2">{blog._created}</p>
+                        <p className="card-text ml-2">{moment(blog._created).format('MMMM Do, YYYY')}</p>
                         <h4><span className="badge badge-info">{tag.name}</span></h4>
                         <div>
                             <Link className="btn btn-warning shadow btn-block mx-auto" to={`/${id}/admin`}>Options</Link>
