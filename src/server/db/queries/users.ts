@@ -1,6 +1,6 @@
 import { connection as knex } from '../index';
 
-const getUserId = (name: string) => knex('blogs').where('authors.name', name).select('authorid').join('authors', 'blogs.authorid', '=', 'authors.id').orderBy('authorid').limit(1);
+const getUserId = (name: string) => knex('users').where('firstname', name).select('id');
 
 const findOneByEmail = (email: string) => knex('users').where('email', email).select().limit(1);
 

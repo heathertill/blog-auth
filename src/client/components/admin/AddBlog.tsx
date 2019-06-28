@@ -9,7 +9,7 @@ export interface AddBlogState {
     name: string,
     title: string,
     content: string,
-    authorid: string,
+    userid: string,
     tags: { id: number, name: string }[],
     tagid: string,
     blogid: number,
@@ -24,7 +24,7 @@ class AddBlog extends React.Component<AddBlogProps, AddBlogState> {
             name: '',
             title: '',
             content: '',
-            authorid: null,
+            userid: '',
             tags: [],
             tagid: '',
             blogid: null
@@ -48,13 +48,19 @@ class AddBlog extends React.Component<AddBlogProps, AddBlogState> {
         e.preventDefault();
         let name = this.state.name;
         try {
-            let r = await fetch(`/api/authors/${name}`);
-            let authorid = await r.json();
-            this.setState(authorid[0]);
+            console.log('comp/addblog/name', name)
+            let r = await fetch(`/api/users/${name}`);
+            let userid = await r.json();
+            console.log('comp/admin/add/userid1', userid);
+            this.setState(userid);
+            console.log('comp/admin/add/userid', userid);
         } catch (err) {
             console.log(err)
         } finally {
-            let data = { title: this.state.title, content: this.state.content, authorid: this.state.authorid }
+            console.log('this.state.userid', this.state.userid)
+            console.log('this.state.id', this.state.id)
+            let data = { title: this.state.title, content: this.state.content, userid: this.state.id }
+            console.log('data', data)
             let r = await fetch('api/blogs/', {
                 method: 'POST',
                 body: JSON.stringify(data),
@@ -63,7 +69,9 @@ class AddBlog extends React.Component<AddBlogProps, AddBlogState> {
                 }
             });
             let info = await r.json();
-            this.setState({ blogid: info.insertId })
+            console.log('info.insertid', info)
+            this.setState({ blogid: info })
+            console.log('comp/addblog/blogid', this.state.blogid)
             this.createBlogTags();
             this.props.history.push('/');
         }
@@ -71,6 +79,7 @@ class AddBlog extends React.Component<AddBlogProps, AddBlogState> {
 
     async createBlogTags() {
         let data = { blogid: this.state.blogid, tagid: this.state.tagid }
+        console.log('comp/addblog/data', data)
         try {
             await fetch('/api/tags', {
                 method: 'POST',
@@ -89,7 +98,7 @@ class AddBlog extends React.Component<AddBlogProps, AddBlogState> {
             <div className="row justify-content-center">
                 <div className="chirpInput card col-md-8 border p-3 mt-3">
                     <div className="card-body">
-                    <div>*** Users: Heather, Kenneth, Caroline, Reid or Davis ***</div>
+                    <div>*** Users: Lhotse, Caroline, Heather, Reid ***</div>
                         <form className="form-group mb-0 p-3">
                             <label htmlFor="name">Name</label>
                             <input onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ name: e.target.value })}

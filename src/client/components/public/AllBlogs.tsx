@@ -11,7 +11,7 @@ export interface Blog {
     title: string,
     content: string,
     _created: Date,
-    authorid: number
+    userid: number
 }
 
 const AllBlogs: React.SFC<AllBlogsProps> = () => {

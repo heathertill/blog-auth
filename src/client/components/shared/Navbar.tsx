@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import { __RouterContext } from 'react-router';
 import { Link } from 'react-router-dom';
-import { Tag } from './OneBlog';
+import { Tag } from '../public/OneBlog';
 
 export interface NavbarProps { }
 

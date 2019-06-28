@@ -18,7 +18,7 @@ const OneBlog: React.FC<OneBlogProps> = ({ history, match: { params: { id } } })
         title: null,
         content: null,
         _created: null,
-        authorid: null,
+        userid: null,
     });
 
 

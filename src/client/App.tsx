@@ -3,13 +3,13 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import './scss/app';
 
-import Navbar from './components/Navbar';
-import AllBlogs from './components/AllBlogs';
-import OneBlog from './components/OneBlog';
-import Admin from './components/Admin';
-import AddBlog from './components/AddBlog';
-import About from './components/About';
-import ShowTags from './components/ShowTags';
+import Navbar from './components/shared/Navbar';
+import AllBlogs from './components/public/AllBlogs';
+import OneBlog from './components/public/OneBlog';
+import Admin from './components/admin/Admin';
+import AddBlog from './components/admin/AddBlog';
+import About from './components/shared/About';
+import ShowTags from './components/public/ShowTags';
 
 const App: React.SFC<AppProps> = props => {
     return (
