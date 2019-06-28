@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { json, User } from '../../utils/api';
 
 
 export interface AddBlogProps extends RouteComponentProps { }
@@ -48,21 +49,13 @@ class AddBlog extends React.Component<AddBlogProps, AddBlogState> {
         e.preventDefault();
         let name = this.state.name;
         try {
-            let r = await fetch(`/api/users/${name}`);
-            let userid = await r.json();
+            let userid = await json(`/api/users/${name}`);
             this.setState(userid);
         } catch (err) {
             console.log(err)
         } finally {
             let data = { title: this.state.title, content: this.state.content, userid: this.state.id }
-            let r = await fetch('api/blogs/', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    "Content-type": "application/json"
-                }
-            });
-            let info = await r.json();
+            let info = await json('/api/blogs', 'POST', data);
             this.setState({ blogid: info })
             this.createBlogTags();
             this.props.history.push('/');
@@ -73,13 +66,7 @@ class AddBlog extends React.Component<AddBlogProps, AddBlogState> {
         let data = { blogid: this.state.blogid, tagid: this.state.tagid }
         console.log('comp/addblog/data', data)
         try {
-            await fetch('/api/tags', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    "Content-type": "application/json"
-                }
-            });
+            await json('/api/tags', 'POST', data);
         } catch (err) {
             console.log(err)
         }

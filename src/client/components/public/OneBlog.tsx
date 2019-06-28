@@ -40,15 +40,7 @@ const OneBlog: React.FC<OneBlogProps> = ({ history, match: { params: { id } } })
         }
     };
 
-
-    // const getTag = async () => {
-    //     let r = await fetch(`/api/tags/${id}`);
-    //     let tag = await r.json();
-    //     setTag(tag);
-    // };
-
     useEffect(() => { getBlog() }, [id]);
-    // useEffect(() => { getTag() }, [id]);
 
     return (
         <div className="row justify-content-center">

@@ -38,7 +38,7 @@ router.get('/:id?', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
         let newBlog = await queries.Blogs.createBlog(req.body, req.body.id);
-        res.json({ message: 'Blogged' });
+        res.json(newBlog);
         
     } catch (err) {
         console.log(err);

@@ -22,7 +22,6 @@ const AllBlogs: React.SFC<AllBlogsProps> = () => {
     const getBlogs = async () => {
         try {
             let blogs = await json('api/blogs');
-            console.log(blogs)
             setBlogs(blogs);
         } catch (err) {
             console.log(err)

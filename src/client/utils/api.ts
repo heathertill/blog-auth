@@ -1,5 +1,4 @@
 import * as fetch from 'isomorphic-fetch';
-import { token } from 'morgan';
 
 export let AccessToken: string = localStorage.getItem('token') || null;
 export let User: any = {
@@ -24,26 +23,27 @@ export const json = async <T = any>(uri: string, method: string = 'GET', body?: 
     // };
     if (AccessToken) {
         headers['Authorization'] = `Bearer ${AccessToken}`;
-try {
-    let result = await fetch(uri, {
-        method,
-        headers,
-        body: JSON.stringify(body)
-    });
-    // if result has result.ok property i.e res.json({ message: 'Blogged' }) - even if message is empty
-    if (result.ok) {
-        // this is what is return from this json function. Now can write
-        // let blogs = await fetch('api/blogs');
-        // setBlogs(blogs);
-        return <T>(await result.json());
-    } else {
-        return false;
     }
-} catch (err) {
-    console.log(err)
-    throw err;
-}
- }
+
+    try {
+        let result = await fetch(uri, {
+            method,
+            headers,
+            body: JSON.stringify(body)
+        });
+        // if result has result.ok property i.e res.json({ message: 'Blogged' }) - even if message is empty
+        if (result.ok) {
+            // this is what is return from this json function. Now can write
+            // let blogs = await fetch('api/blogs');
+            // setBlogs(blogs);
+            return <T>(await result.json());
+        } else {
+            return false;
+        }
+    } catch (err) {
+        console.log(err)
+        throw err;
+    }
 };
 
 // User object given default values that will be overridden when the actual user object is passed in at login attempt
@@ -54,5 +54,5 @@ export const SetAccessToken = (token: string, user: {} = { userid: undefined, ro
     localStorage.setItem('token', token);
     localStorage.setItem('userid', User.userid);
     localStorage.setItem('role', User.role);
-    
+
 }
