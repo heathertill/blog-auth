@@ -6,7 +6,8 @@ const router = Router();
 router.get('/:selectTag', async (req, res, next) => {
     let id = req.params.selectTag;
     try {
-        res.json((await queries.AllTags.allOneTag(id)))
+        let tags = await queries.AllTags.allOneTag(id);
+        res.json(tags);
     } catch (err) {
         console.log(err)
         res.sendStatus(500)

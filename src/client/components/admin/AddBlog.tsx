@@ -48,19 +48,13 @@ class AddBlog extends React.Component<AddBlogProps, AddBlogState> {
         e.preventDefault();
         let name = this.state.name;
         try {
-            console.log('comp/addblog/name', name)
             let r = await fetch(`/api/users/${name}`);
             let userid = await r.json();
-            console.log('comp/admin/add/userid1', userid);
             this.setState(userid);
-            console.log('comp/admin/add/userid', userid);
         } catch (err) {
             console.log(err)
         } finally {
-            console.log('this.state.userid', this.state.userid)
-            console.log('this.state.id', this.state.id)
             let data = { title: this.state.title, content: this.state.content, userid: this.state.id }
-            console.log('data', data)
             let r = await fetch('api/blogs/', {
                 method: 'POST',
                 body: JSON.stringify(data),
@@ -69,9 +63,7 @@ class AddBlog extends React.Component<AddBlogProps, AddBlogState> {
                 }
             });
             let info = await r.json();
-            console.log('info.insertid', info)
             this.setState({ blogid: info })
-            console.log('comp/addblog/blogid', this.state.blogid)
             this.createBlogTags();
             this.props.history.push('/');
         }

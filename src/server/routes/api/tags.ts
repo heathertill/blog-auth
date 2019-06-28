@@ -5,7 +5,8 @@ const router = Router();
 
 router.get('/', async (req, res, next) => {
     try {
-        res.json(await queries.Tags.getAllTags())
+        let tags = await queries.Tags.getAllTags();
+        res.json(tags);
     } catch (err) {
         console.log(err);
         res.sendStatus(500);
@@ -13,9 +14,10 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/:blogid', async (req, res, next) => {
-    let blogid = req.params.blogid
+    let blogid = req.params.blogid;
     try {
-        res.json((await queries.Tags.getTag(blogid))[0])
+        let [id] = await queries.Tags.getTag(blogid);
+        res.json(id);
     } catch (err) {
         console.log(err);
         res.sendStatus(500);
@@ -24,7 +26,8 @@ router.get('/:blogid', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        res.json(await queries.Tags.createBlogTag(req.body))
+        await queries.Tags.createBlogTag(req.body);
+        res.json({ message: 'Blogged!' });
     } catch (err) {
         console.log(err);
         res.sendStatus(500);
@@ -32,9 +35,10 @@ router.post('/', async (req, res, next) => {
 });
 
 router.delete('/:blogid', async (req, res, next) => {
-    let blogid = req.params.blogid
+    let blogid = req.params.blogid;
     try {
-        res.json(await queries.Tags.deleteBlogTag(req.params.blogid))
+        await queries.Tags.deleteBlogTag(blogid);
+        res.json({ message: 'Blogged!' });
     } catch (err) {
         console.log(err)
     }

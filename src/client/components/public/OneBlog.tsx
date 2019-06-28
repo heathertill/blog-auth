@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import moment from 'moment';
 import { Blog } from './AllBlogs';
+import { json } from '../../utils/api';
 
 export interface OneBlogProps extends RouteComponentProps<{ id: string }> { }
 
@@ -21,31 +22,33 @@ const OneBlog: React.FC<OneBlogProps> = ({ history, match: { params: { id } } })
         userid: null,
     });
 
+    const [tag, setTag] = useState<Tag>({
+        id: null,
+        name: ''
+    });
 
     const getBlog = async () => {
         try {
-            let r = await fetch(`/api/blogs/${id}`);
-            let blog = await r.json();
+            let blog = await json(`/api/blogs/${id}`);
+            console.log(blog)
             setBlog(blog);
-            console.log('cl/comp/one/blog', blog)
+
+            let tag = await json(`/api/tags/${id}`);
+            setTag(tag);
         } catch (err) {
             console.log(err)
         }
     };
 
-    const [tag, setTag] = useState<Tag>({
-        id: null,
-        name: ''
-    })
 
-    const getTag = async () => {
-        let r = await fetch(`/api/tags/${id}`);
-        let tag = await r.json();
-        setTag(tag);
-    };
+    // const getTag = async () => {
+    //     let r = await fetch(`/api/tags/${id}`);
+    //     let tag = await r.json();
+    //     setTag(tag);
+    // };
 
     useEffect(() => { getBlog() }, [id]);
-    useEffect(() => { getTag() }, [id]);
+    // useEffect(() => { getTag() }, [id]);
 
     return (
         <div className="row justify-content-center">

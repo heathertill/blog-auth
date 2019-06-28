@@ -22,13 +22,13 @@ router.get('/', async (req, res, next) => {
         res.sendStatus(500)
     }
 });
+
 // router.get('/:id?', isAdmin, async (req, res, next) => {
 router.get('/:id?', async (req, res, next) => {
     let id = req.params.id
     try {
-        let blog = await queries.Blogs.one(id)
-            // the [0] gets the blog object from the array
-            res.json(blog[0]);
+        let [blog] = await queries.Blogs.one(id)
+            res.json(blog);
         } catch (err) {
             console.log(err);
             res.sendStatus(500);
@@ -38,7 +38,7 @@ router.get('/:id?', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
         let newBlog = await queries.Blogs.createBlog(req.body, req.body.id);
-        res.json(newBlog);
+        res.json({ message: 'Blogged' });
         
     } catch (err) {
         console.log(err);
@@ -47,10 +47,11 @@ router.post('/', async (req, res, next) => {
 });
 
 router.put('/:id', async (req, res, next) => {
-    let id = req.params.id
+    let id = req.params.id;
+    let blogBody = req.body;
     try {
-        let blog = await queries.Blogs.updateBlog(req.body, id)
-        res.json(blog)
+        await queries.Blogs.updateBlog(blogBody, id)
+        res.json({ message: 'Blogged' })
     } catch (err) {
         console.log(err);
         res.sendStatus(500);
@@ -60,7 +61,8 @@ router.put('/:id', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
     let id = req.params.id
     try {
-        res.json(await queries.Blogs.deleteBlog(id))
+        await queries.Blogs.deleteBlog(id)
+        res.json({ message: 'Blogged' })
     } catch (err) {
         console.log(err);
         res.sendStatus(500);

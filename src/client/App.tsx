@@ -10,6 +10,7 @@ import Admin from './components/admin/Admin';
 import AddBlog from './components/admin/AddBlog';
 import About from './components/shared/About';
 import ShowTags from './components/public/ShowTags';
+import Login from './components/admin/Login';
 
 const App: React.SFC<AppProps> = props => {
     return (
@@ -23,6 +24,7 @@ const App: React.SFC<AppProps> = props => {
                     <Route exact path='/add' component={AddBlog} />
                     <Route exact path='/about' component={About} />
                     <Route exact path='/showTags/:id' component={ShowTags} />
+                    <Route exact path='/login' component={Login} />
                 </Switch>
             </main>
         </BrowserRouter>

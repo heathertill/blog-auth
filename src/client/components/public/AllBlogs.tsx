@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { json } from '../../utils/api'
 
 export interface AllBlogsProps { }
 
@@ -20,8 +21,8 @@ const AllBlogs: React.SFC<AllBlogsProps> = () => {
 
     const getBlogs = async () => {
         try {
-            let r = await fetch('api/blogs');
-            let blogs = await r.json();
+            let blogs = await json('api/blogs');
+            console.log(blogs)
             setBlogs(blogs);
         } catch (err) {
             console.log(err)
