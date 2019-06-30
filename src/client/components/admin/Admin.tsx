@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { json, User } from '../../utils/api';
 
 export interface AdminProps extends RouteComponentProps<{ id: string }> { }
 
@@ -12,8 +13,8 @@ const Admin: React.SFC<AdminProps> = ({ history, match }) => {
     const [blogContent, setBlogContent] = useState('');
 
     const getBlog = async () => {
-        let r = await fetch(`/api/blogs/${id}`);
-        let blog = await r.json();
+        // let r = await fetch(`/api/blogs/${id}`);  // use with knex/json
+        let blog = await json(`/api/blogs/${id}`);
         setBlogTitle(blog.title)
         setBlogContent(blog.content)
     }
@@ -55,12 +56,10 @@ const Admin: React.SFC<AdminProps> = ({ history, match }) => {
 
     const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
         setBlogTitle(e.target.value);
-        console.log('blogtitle', blogTitle)
     }
 
     const handleContent = (e: React.ChangeEvent<HTMLInputElement>) => {
         setBlogContent(e.target.value);
-        console.log('blogcontent', blogContent)
     }
 
     return (

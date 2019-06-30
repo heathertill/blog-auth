@@ -4,14 +4,20 @@ import * as jwt from 'jsonwebtoken';
 import config from '../../config';
 import queries from '../../db';
 
-export const CreateToken = async(payload: IPayload) => {
+export const CreateToken = async (payload: IPayload) => {
+    console.log('util/sec/token/ring')
     let tokenid: any = await queries.AccessTokens.insert(payload.userid);
+    console.log('util/sec/tok/tokenid', tokenid);
     payload.accesstokenid = tokenid.insertId;
+    console.log('util/sec/tok/payload.acctokid', payload.accesstokenid);
     payload.unique = crypto.randomBytes(32).toString('hex');
     let token = await jwt.sign(payload.accesstokenid, config.auth.secret);
+    console.log('util/sec/tok/token', token)
     await queries.AccessTokens.update(payload.accesstokenid, token);
     return token;
 };
+
+///*** */
 
 export const ValidToken = async (token: string) => {
     // give jwt the IPayload generic so it can decode it into the kind of payload we need

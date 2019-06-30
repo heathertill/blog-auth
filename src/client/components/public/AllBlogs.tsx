@@ -2,13 +2,13 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import { json } from '../../utils/api'
+// import { json } from '../../utils/api'
 
 export interface AllBlogsProps { }
 
 export interface Blog {
     id: number,
-    name: string,
+    firstname: string,
     title: string,
     content: string,
     _created: Date,
@@ -21,7 +21,11 @@ const AllBlogs: React.SFC<AllBlogsProps> = () => {
 
     const getBlogs = async () => {
         try {
-            let blogs = await json('api/blogs');
+            console.log('wow')
+            let r = await fetch('api/blogs');
+            let blogs = await r.json();
+            // let blogs = await json('api/blogs');  // use with knex/json
+            console.log('comp/pub/blog', blogs)
             setBlogs(blogs);
         } catch (err) {
             console.log(err)
@@ -42,7 +46,7 @@ const AllBlogs: React.SFC<AllBlogsProps> = () => {
                                     <img src="images/clipboard.jpg" alt="clipboard" className="card-img-top" />
                                 </div>
                                 <div className="card-body">
-                                    <p className="card-text">{blog.name}</p>
+                                    <p className="card-text">{blog.firstname}</p>
                                     <p className="card-text">{moment(blog._created).format('MMMM Do, YYYY')}</p>
                                     <Link to={`/blogs/${blog.id}`} className="btn btn-warning shadow btn-block mx-auto" >View Blog</Link>
                                 </div>

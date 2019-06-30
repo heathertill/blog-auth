@@ -14,14 +14,20 @@ passport.use(new LocalStrategy.Strategy({
     session: false
 }, // email and password are provided by the user at login on frontend
     async (email, password, done) => {
+        console.log('localstrat')
         try {
             let [user]: any = await queries.Users.findOneByEmail(email);
             if (user && ComparePassword(password, user.password)) {
+                console.log('localstrat/yes');
                 done(null, user);
             } else {
+                console.log('localstrat/no')
                 done(null, false);
             }
         } catch (err) {
             done(err);
         }
-}))
+    }));
+
+
+    ///*** 

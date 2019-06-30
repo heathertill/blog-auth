@@ -16,11 +16,11 @@ export const json = async <T = any>(uri: string, method: string = 'GET', body?: 
         // can add more to the header as needed, i.e. authorization, etc
         'Content-type': 'application/json'
     };
-    // if accesstoken exists add a new key to headers object, note the syntax (not an array) makes headers {} = 
-    // let headers: any = {
-    // 'Content-type': 'application/json',
-    // 'Authorization': `Bearer ${AccessToken}`
-    // };
+    // ** if accesstoken exists add a new key to headers object, note the syntax (not an array) makes headers {} = 
+    // ** let headers: any = {
+    // ** 'Content-type': 'application/json',
+    // ** 'Authorization': `Bearer ${AccessToken}`
+    // ** };
     if (AccessToken) {
         headers['Authorization'] = `Bearer ${AccessToken}`;
     }
@@ -50,7 +50,6 @@ export const json = async <T = any>(uri: string, method: string = 'GET', body?: 
 export const SetAccessToken = (token: string, user: {} = { userid: undefined, role: 'guest' }) => {
     AccessToken = token;
     User = user;
-
     localStorage.setItem('token', token);
     localStorage.setItem('userid', User.userid);
     localStorage.setItem('role', User.role);

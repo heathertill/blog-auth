@@ -37,7 +37,7 @@ router.get('/:id?', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        let newBlog = await queries.Blogs.createBlog(req.body, req.body.id);
+        let newBlog = await queries.Blogs.createBlog(req.body.title, req.body.content, req.body.id);
         res.json(newBlog);
         
     } catch (err) {
@@ -50,7 +50,7 @@ router.put('/:id', async (req, res, next) => {
     let id = req.params.id;
     let blogBody = req.body;
     try {
-        await queries.Blogs.updateBlog(blogBody, id)
+        await queries.Blogs.updateBlog(blogBody.title, blogBody.content, id)
         res.json({ message: 'Blogged' })
     } catch (err) {
         console.log(err);

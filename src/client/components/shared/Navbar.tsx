@@ -36,7 +36,7 @@ const Navbar: React.SFC<NavbarProps> = () => {
 
     return (
         <div className="card  blog-head sticky-top border-dark rounded my-5 bg-info shadow-lg">
-            <nav className="navbar navbar-expand-lg ">
+            <nav className="navbar navbar-expand-md ">
                 <div className="navbar">
                     <ul className="navbar-nav  justify-content-right">
                         <li className="nav-item">

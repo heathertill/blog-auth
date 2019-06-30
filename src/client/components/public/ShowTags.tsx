@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import moment from 'moment';
 import { Blog } from './AllBlogs'
+// import { json } from '../../utils/api';
 
 export interface ShowTagsProps extends RouteComponentProps<{ id: string }> { }
 
@@ -15,6 +16,7 @@ const ShowTags: React.SFC<ShowTagsProps> = (props) => {
         try {
             let r = await fetch(`/api/alltags/${id}`);
             let blogs = await r.json();
+            // let blogs = await json(`/api/alltags/${id}`);  // use with knex/json
             setBlogs(blogs)
         } catch (err) {
             console.log(err)
