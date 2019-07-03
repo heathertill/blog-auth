@@ -30,7 +30,7 @@ const ShowTags: React.SFC<ShowTagsProps> = (props) => {
                     <article className="col-md-4 p-2" key={blog.id}>
                         <div className="card-deck m-1">
                             <div className="card font-open m-2 border-dark rounded">
-                                <div className="card-body d-flex align-content-between flex-wrap bck-gradient">
+                                <div className="card-body  bck-gradient">
                                     <h3 className="card-title text-center mx-auto blog-content pt-2 blog-title">{blog.title}</h3>
                                     <div className="card-text text-center mx-auto ml-2">{moment(blog._created).format('MMMM Do, YYYY')}</div>
                                 </div>

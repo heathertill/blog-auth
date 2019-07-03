@@ -7,24 +7,11 @@ $theme-colors: (
 
 @import '../../../node_modules/bootstrap/scss/bootstrap.scss';
 
-$font-raj: 'Rajdhani', sans-serif;
-$font-news: 'News Cycle', sans-serif;
-
-$font-head: 'Sedgwick Ave', cursive;
-
-$font-title: 'Loved by the King', cursive;
-
 .font-wick {
     font-family: 'Sedgwick Ave', cursive;
-    // font-size: 1.8em;
 }
 .font-open {
     font-family: 'Open Sans', sans-serif;
-}
-
-
-.covalence-blue {
-    color: #0091ea;
 }
 
 .card-img-wrapper .card-img-top {
@@ -39,7 +26,6 @@ $font-title: 'Loved by the King', cursive;
     position: absolute;
     z-index: 1;
     font-size: 1.8em;
-    // font-family: $font-title;
 }
 
 .card-img-top {
@@ -50,6 +36,7 @@ $font-title: 'Loved by the King', cursive;
     width: 50%;
     text-overflow: ellipsis;
     overflow: hidden;
+    hyphens: auto;
 }
 
 body {
@@ -57,25 +44,10 @@ body {
 }
 .header {
     font-size: 5.2em;
-    // font-family: $font-head;
-}
-
-.blog-head {
-    color: white;
 }
 
 .aboutdiv {
     font-size: 1.25em;
-}
-
-
-
-.show-card {
-    height: 375px;
-}
-
-.show-tags {
-    height: 375px;
 }
 
 .bck-gradient {
@@ -87,4 +59,6 @@ body {
     width: 90%;
     text-overflow: ellipsis;
     overflow: hidden;
+    white-space: normal;
+    hyphens: auto;
 }

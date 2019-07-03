@@ -42,8 +42,7 @@ const Navbar: React.SFC<NavbarProps> = () => {
     };
 
     return (
-        // <div className="jumbotron p-0">
-            <div className="card blog-head sticky-top border-dark rounded my-5 bg-info shadow-lg">
+            <div className="card text-white sticky-top border-dark rounded my-5 bg-info shadow-lg">
                 <nav className="navbar navbar-expand-md ">
                     <div className="navbar">
                         <ul className="navbar-nav  justify-content-right">
@@ -80,7 +79,6 @@ const Navbar: React.SFC<NavbarProps> = () => {
                     </div>
                 </div>
             </div>
-        // </div>
     );
 }
 
