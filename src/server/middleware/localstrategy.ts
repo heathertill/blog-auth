@@ -18,7 +18,6 @@ passport.use(new LocalStrategy.Strategy({
         try {
             let [user]: any = await queries.Users.findOneByEmail(email);
             if (user && ComparePassword(password, user.password)) {
-                console.log('localstrat/yes');
                 done(null, user);
             } else {
                 console.log('localstrat/no')

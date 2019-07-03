@@ -13,6 +13,7 @@ const isAdmin: RequestHandler = (req, res, next) => {
     }
 };
 
+
 router.get('/', async (req, res, next) => {
     try {
         let blogs = await queries.Blogs.all();
@@ -35,11 +36,11 @@ router.get('/:id?', async (req, res, next) => {
         }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
+    let blogBody = req.body;
     try {
-        let newBlog = await queries.Blogs.createBlog(req.body.title, req.body.content, req.body.id);
+        let newBlog = await queries.Blogs.createBlog(blogBody, blogBody.id);
         res.json(newBlog);
-        
     } catch (err) {
         console.log(err);
         res.sendStatus(500);
@@ -50,7 +51,7 @@ router.put('/:id', async (req, res, next) => {
     let id = req.params.id;
     let blogBody = req.body;
     try {
-        await queries.Blogs.updateBlog(blogBody.title, blogBody.content, id)
+        await queries.Blogs.updateBlog(blogBody, id)
         res.json({ message: 'Blogged' })
     } catch (err) {
         console.log(err);

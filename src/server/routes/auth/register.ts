@@ -7,11 +7,14 @@ import { CreateToken } from '../../utils/security/tokens';
 const router = express.Router();
 
 router.post('/', async (req, res, next) => {
+    console.log('auth/reg/ding')
     try {
         let user = req.body;
-        user.password = HashPassword(req.body.password);
-        let [result]: any = await queries.Users.insert(user.email, user.firstname, user.password);
+        req.user.password = HashPassword(req.body.password);
+        console.log('auth/reg/req.user.pass', req.user.password);
+        let [result]: any = await queries.Users.insert(user);
         let token = await CreateToken({ userid: result.insertId });
+        console.log('auth/reg/token', token);
         res.json({
             token,
             role: 'guest',
@@ -22,5 +25,6 @@ router.post('/', async (req, res, next) => {
         res.sendStatus(500);
     }
 })
+
 
 export default router;

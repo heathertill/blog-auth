@@ -1,10 +1,10 @@
-import * as fetch from 'isomorphic-fetch';
+// import * as fetch from 'isomorphic-fetch';
 
 export let AccessToken: string = localStorage.getItem('token') || null;
 export let User: any = {
     // userid and role generated from localStorage to confirm the user has logged in and set a value for it
     userid: localStorage.getItem('userid') || null,
-    role: localStorage.getItem('roll') || null
+    role: localStorage.getItem('role') || null
 };
 
 // json helper function - extends the fetch call. Its async bc using fetch returning a Promise
@@ -24,7 +24,6 @@ export const json = async <T = any>(uri: string, method: string = 'GET', body?: 
     if (AccessToken) {
         headers['Authorization'] = `Bearer ${AccessToken}`;
     }
-
     try {
         let result = await fetch(uri, {
             method,
@@ -33,9 +32,7 @@ export const json = async <T = any>(uri: string, method: string = 'GET', body?: 
         });
         // if result has result.ok property i.e res.json({ message: 'Blogged' }) - even if message is empty
         if (result.ok) {
-            // this is what is return from this json function. Now can write
-            // let blogs = await fetch('api/blogs');
-            // setBlogs(blogs);
+            // this is what is return from this json function. Now can write ...
             return <T>(await result.json());
         } else {
             return false;
@@ -50,6 +47,7 @@ export const json = async <T = any>(uri: string, method: string = 'GET', body?: 
 export const SetAccessToken = (token: string, user: {} = { userid: undefined, role: 'guest' }) => {
     AccessToken = token;
     User = user;
+    
     localStorage.setItem('token', token);
     localStorage.setItem('userid', User.userid);
     localStorage.setItem('role', User.role);

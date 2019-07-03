@@ -11,12 +11,10 @@ const router = express.Router();
 // this needs to be above all other routers to verify
 router.use((req, res, next) => {
     passport.authenticate('bearer', { session: false }, (err, user, info) => {
-        console.log('api/index/bearer')
         if (user) {
-            console.log('api/index/user', user)
             req.user = user
+            return next();
         } else {
-            console.log('api/index/denied')
             return next();
         }
         

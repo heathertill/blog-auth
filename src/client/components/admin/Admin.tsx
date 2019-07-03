@@ -9,35 +9,48 @@ const Admin: React.SFC<AdminProps> = ({ history, match }) => {
 
     let id = match.params.id
 
+    const [blogUserId, setBlogUserId] = useState('');
     const [blogTitle, setBlogTitle] = useState('');
     const [blogContent, setBlogContent] = useState('');
+    const [isAllowed, setIsAllowed] = useState(false);
+
 
     const getBlog = async () => {
-        // let r = await fetch(`/api/blogs/${id}`);  // use with knex/json
         let blog = await json(`/api/blogs/${id}`);
-        setBlogTitle(blog.title)
-        setBlogContent(blog.content)
+        setBlogTitle(blog.title);
+        setBlogContent(blog.content);
+        setBlogUserId(blog.userid);
+        if (User.userid == blog.userid) {
+            setIsAllowed(true);
+        }
     }
 
-    useEffect(() => { getBlog(); }, []);
+    useEffect(() => { getBlog() }, []);
 
+    const renderEdit = () => {
+        if (isAllowed === true) {
+            return  <button onClick={handleEdit} className="btn btn-info m-2">Edit</button>
+        } else {
+            return  <button onClick={() => history.replace('/')} className="btn btn-info m-2">Go Back</button>
+        }
+}
     const handleEdit = async () => {
-        let data = {
-            title: blogTitle,
-            content: blogContent,
-        }
-        try {
-            await fetch(`/api/blogs/${id}`, {
-                method: 'PUT',
-                body: JSON.stringify(data),
-                headers: {
-                    "Content-type": "application/json"
-                }
-            })
-            history.replace('/')
-        } catch (err) {
-            console.log(err)
-        }
+            let data = {
+                title: blogTitle,
+                content: blogContent,
+            }
+            try {
+                await fetch(`/api/blogs/${id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-type": "application/json"
+                    }
+                })
+                history.replace('/')
+            } catch (err) {
+                console.log(err)
+            }
     };
 
     const handleDelete = async () => {
@@ -54,29 +67,22 @@ const Admin: React.SFC<AdminProps> = ({ history, match }) => {
         }
     };
 
-    const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setBlogTitle(e.target.value);
-    }
-
-    const handleContent = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setBlogContent(e.target.value);
-    }
-
     return (
-        <div className="card-deck">
-            <div className="card">
+        <div className="card-deck row justify-content-center">
+            <div className="card col-md-8 border bck-gradient border-dark p-3 m-3">
                 <div className="card-body">
-                    <h5><input
-                        onChange={handleTitle}
-                        className="form-control" type="text" value={blogTitle} /></h5>
-                    <input onChange={handleContent} type="text" className="form-control" value={blogContent} />
+                    <label htmlFor="blogTitle m-0">Title</label>
+                    <input
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBlogTitle(e.target.value)}
+                        className="form-control mb-3" type="text" value={blogTitle} />
+                    <label htmlFor="blogContent m-0">Content</label>
+                    <textarea onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setBlogContent(e.target.value)}
+                        className="form-control mb-3" value={blogContent} rows={5} />
                     <div>
-                        <button
-                            onClick={handleEdit}
-                            className="btn btn-info">Edit</button>
+                        {renderEdit()}
                         <button
                             onClick={handleDelete}
-                            className="btn btn-info">Delete</button>
+                            className="btn btn-info m-2">Delete</button>
                     </div>
                 </div>
             </div>

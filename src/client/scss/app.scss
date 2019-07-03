@@ -1,7 +1,8 @@
 $theme-colors: (
     "success": rgba(211, 223, 219, 1),
     "warning": rgba(236, 216, 177, 1),
-    "info": rgba(58, 161, 63, 0.87)
+    "info": rgba(58, 161, 63, 0.87),
+    "primary": darkgrey
 );
 
 @import '../../../node_modules/bootstrap/scss/bootstrap.scss';
@@ -56,11 +57,20 @@ body {
    font-family: $font-title;
 }
 
+.show-card {
+    height: 375px;
+}
+
 .show-tags {
     height: 375px;
 }
 
+.bck-gradient {
+    background-image: radial-gradient(white, rgba(236, 216, 177, 1))
+}
+
 .blog-content {
+    height: 150px;
     width: 90%;
     text-overflow: ellipsis;
     overflow: hidden;

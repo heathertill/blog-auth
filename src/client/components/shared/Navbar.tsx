@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import { __RouterContext } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Tag } from '../public/OneBlog';
+import { User } from '../../utils/api';
 
 export interface NavbarProps { }
 
@@ -21,7 +22,13 @@ const Navbar: React.SFC<NavbarProps> = () => {
         }
     };
 
-    useEffect(() => { getTags() }, []);
+    const renderAddBlog = () => {
+    if (User && User.role === 'admin') {
+        return <Link className="text-white mr-3" to="/add">Add Blog</Link>
+    }
+}
+
+    useEffect(() => { getTags(); renderAddBlog() }, []);
 
     const [id, setid] = useState(undefined);
 
@@ -40,7 +47,7 @@ const Navbar: React.SFC<NavbarProps> = () => {
                 <div className="navbar">
                     <ul className="navbar-nav  justify-content-right">
                         <li className="nav-item">
-                            <Link className="text-white mr-3" to="/add">Admin</Link>
+                            <Link className="text-white mr-3" to="/login">Admin</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="text-white mr-3" to="/">All Blogs</Link>
@@ -48,7 +55,7 @@ const Navbar: React.SFC<NavbarProps> = () => {
                         <li className="nav-item">
                             <Link className="text-white mr-3" to="/about">About</Link>
                         </li>
-                        <li className="nav-item dropdown">
+                        <li className="nav-item dropdown mr-3">
                             <select
                                 onChange={handleSelect} value={id}
                                 className="dropdown-item bg-info text-white">
@@ -60,9 +67,9 @@ const Navbar: React.SFC<NavbarProps> = () => {
                                 })}
                             </select>
                         </li>
-                        {/* <li className="nav-item ">
-                            <Link to={`/showTags/${id}`} className="text-white  ml-3" >Show Blogs</Link>
-                        </li> */}
+                        <li className="nav-item">
+                            {renderAddBlog()}
+                        </li>
                     </ul>
                 </div>
             </nav>

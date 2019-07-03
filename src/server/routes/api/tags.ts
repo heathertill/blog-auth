@@ -26,7 +26,7 @@ router.get('/:blogid', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        await queries.Tags.createBlogTag(req.body.blogid, req.body.tagid);
+        await queries.Tags.createBlogTag(req.body);
         res.json({ message: 'Blogged!' });
     } catch (err) {
         console.log(err);

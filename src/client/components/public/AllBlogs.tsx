@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-// import { json } from '../../utils/api'
+import { json } from '../../utils/api'
 
 export interface AllBlogsProps { }
 
@@ -15,17 +15,16 @@ export interface Blog {
     userid: number
 }
 
+
 const AllBlogs: React.SFC<AllBlogsProps> = () => {
 
     const [blogs, setBlogs] = useState<Blog[]>([]);
 
     const getBlogs = async () => {
         try {
-            console.log('wow')
-            let r = await fetch('api/blogs');
-            let blogs = await r.json();
-            // let blogs = await json('api/blogs');  // use with knex/json
-            console.log('comp/pub/blog', blogs)
+            // let r = await fetch('api/blogs');
+            // let blogs = await r.json();
+            let blogs = await json('api/blogs');  // use with knex/json
             setBlogs(blogs);
         } catch (err) {
             console.log(err)

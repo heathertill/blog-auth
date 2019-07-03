@@ -5,31 +5,28 @@ import config from '../../config';
 import queries from '../../db';
 
 export const CreateToken = async (payload: IPayload) => {
-    console.log('util/sec/token/ring')
-    let tokenid: any = await queries.AccessTokens.insert(payload.userid);
-    console.log('util/sec/tok/tokenid', tokenid);
-    payload.accesstokenid = tokenid.insertId;
-    console.log('util/sec/tok/payload.acctokid', payload.accesstokenid);
+    let [tokenid] = await queries.AccessTokens.insert(payload.userid);
+    payload.accesstokenid = tokenid;
     payload.unique = crypto.randomBytes(32).toString('hex');
-    let token = await jwt.sign(payload.accesstokenid, config.auth.secret);
-    console.log('util/sec/tok/token', token)
+    let token = await jwt.sign(payload, config.auth.secret);
     await queries.AccessTokens.update(payload.accesstokenid, token);
     return token;
+    
+    
 };
 
-///*** */
 
 export const ValidToken = async (token: string) => {
     // give jwt the IPayload generic so it can decode it into the kind of payload we need
-    let payload: any = <IPayload>jwt.decode(token);
+    let payload = <IPayload>jwt.decode(token);
     // the [] says i want the property inside the array to be called ...
     // represents [{}] the object inside the array
     // can also access it by payload.accesstokenid[0]
-    let [accesstokenid] = await queries.AccessTokens.findOne(payload, token);
+    let [accesstokenid] = await queries.AccessTokens.findOne(payload.accesstokenid, token);
     if (!accesstokenid) {
         throw new Error('Invalid Token!');
     } else {
-        return accesstokenid;
+        return payload;
     }
 }
 

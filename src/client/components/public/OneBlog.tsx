@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import moment from 'moment';
 import { Blog } from './AllBlogs';
-// import { json } from '../../utils/api';
+import { json, User } from '../../utils/api';
 
 export interface OneBlogProps extends RouteComponentProps<{ id: string }> { }
 
@@ -27,24 +27,22 @@ const OneBlog: React.FC<OneBlogProps> = ({ history, match: { params: { id } } })
         name: ''
     });
 
-
-
     const getBlog = async () => {
         try {
-            let r = await fetch(`/api/blogs/${id}`);
-            let blog = await r.json();
-            // let blog = await json(`/api/blogs/${id}`);  // use with knex/json
+            let blog = await json(`/api/blogs/${id}`); 
             setBlog(blog);
-            console.log('public/oneb/blog', blog)
-
-            let r2 = await fetch(`/api/tags/${id}`)
-            let tag = await r2.json();
-            // let tag = await json(`/api/tags/${id}`);  // use with knex/json
+            let tag = await json(`/api/tags/${id}`);
             setTag(tag);
         } catch (err) {
             console.log(err)
         }
     };
+    const renderEdit = () => {
+        if (User && User.role === 'admin') {
+            
+            return <Link className="btn btn-warning shadow btn-block mx-auto" to={`/${id}/admin`}>Options</Link>
+        }
+    }
 
     useEffect(() => { getBlog() }, [id]);
 
@@ -59,7 +57,7 @@ const OneBlog: React.FC<OneBlogProps> = ({ history, match: { params: { id } } })
                         <p className="card-text ml-2">{moment(blog._created).format('MMMM Do, YYYY')}</p>
                         <h4><span className="badge badge-info">{tag.name}</span></h4>
                         <div>
-                            <Link className="btn btn-warning shadow btn-block mx-auto" to={`/${id}/admin`}>Options</Link>
+                            {renderEdit()}
                             <button onClick={() => history.goBack()} className="btn btn-warning shadow btn-block mx-auto">Go Back</button>
                         </div>
                     </div>

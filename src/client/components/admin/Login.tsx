@@ -1,30 +1,37 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { json, SetAccessToken } from '../../utils/api';
+import { json, SetAccessToken, User } from '../../utils/api';
 
 export interface LoginProps extends RouteComponentProps { }
 
 const Login: React.SFC<LoginProps> = ({ history }) => {
 
+    const isLoggedIn = async () => {
+        if (User && User.role === 'admin') {
+            history.push('/')
+        }
+    };
+
+    useEffect(() => { isLoggedIn() }, []);
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [alert, setAlert] = useState(null);
+    const [loggingIn, setLoggingIn] = useState(false);
+
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            console.log('email1', email);
-            console.log('password1', password)
             let result = await json('/auth/login', 'POST', {
                 email,
                 password
             });
-            console.log('admin/login/result ', result)
             if (result) {
-                console.log('comp/login/result', result);
-                console.log('comp/login/results...', result.token, result.userid, result.role);
-                if (result.role === 'role') {
-                    history.push('/admin');
+                SetAccessToken(result.token, { userid: result.userid, role: result.role })
+                if (result.role === 'admin') {
+                    history.push('/');
                 } else {
                     history.push('/');
                 }
@@ -36,13 +43,12 @@ const Login: React.SFC<LoginProps> = ({ history }) => {
         }
     };
     
-
     return (
         <main className="container">
-            <section className="row">
+            <section className="row justify-content-center">
                 <div className="col-md-8">
                     <form
-                        className="form-group border border-primary rounded shadow-lg mb-0 p-3"
+                        className="form-group bck-gradient border border-primary rounded shadow-lg mb-0 p-3"
                         onSubmit={(e) => handleLogin(e)}>
                         <label htmlFor="email">Email</label>
                         <input
