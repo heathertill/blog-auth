@@ -23,10 +23,10 @@ const Navbar: React.SFC<NavbarProps> = () => {
     };
 
     const renderAddBlog = () => {
-    if (User && User.role === 'admin') {
-        return <Link className="text-white mr-3" to="/add">Add Blog</Link>
+        if (User && User.role === 'admin') {
+            return <Link className="text-white mr-3" to="/add">Add Blog</Link>
+        }
     }
-}
 
     useEffect(() => { getTags(); renderAddBlog() }, []);
 
@@ -42,43 +42,45 @@ const Navbar: React.SFC<NavbarProps> = () => {
     };
 
     return (
-        <div className="card  blog-head sticky-top border-dark rounded my-5 bg-info shadow-lg">
-            <nav className="navbar navbar-expand-md ">
-                <div className="navbar">
-                    <ul className="navbar-nav  justify-content-right">
-                        <li className="nav-item">
-                            <Link className="text-white mr-3" to="/login">Admin</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="text-white mr-3" to="/">All Blogs</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="text-white mr-3" to="/about">About</Link>
-                        </li>
-                        <li className="nav-item dropdown mr-3">
-                            <select
-                                onChange={handleSelect} value={id}
-                                className="dropdown-item bg-info text-white">
-                                <option className="dropdown-item text-white bg-dark">Select Tag</option>
-                                {tags.map(tag => {
-                                    return (
-                                        <option className="bg-dark" key={tag.id} value={tag.id}>{tag.name}</option>
-                                    )
-                                })}
-                            </select>
-                        </li>
-                        <li className="nav-item">
-                            {renderAddBlog()}
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            <div className="row justify-content-md-center">
-                <div className="header col-md-12 p-2">
-                    <p className="text-center  mb-4">Our Crazy Life!</p>
+        // <div className="jumbotron p-0">
+            <div className="card blog-head sticky-top border-dark rounded my-5 bg-info shadow-lg">
+                <nav className="navbar navbar-expand-md ">
+                    <div className="navbar">
+                        <ul className="navbar-nav  justify-content-right">
+                            <li className="nav-item">
+                                <Link className="text-white mr-3" to="/login">Admin</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="text-white mr-3" to="/">All Blogs</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="text-white mr-3" to="/about">About</Link>
+                            </li>
+                            <li className="nav-item dropdown mr-3">
+                                <select
+                                    onChange={handleSelect} value={id}
+                                    className="dropdown-item bg-info text-white">
+                                    <option className="dropdown-item text-white bg-dark">Select Tag</option>
+                                    {tags.map(tag => {
+                                        return (
+                                            <option className="bg-dark" key={tag.id} value={tag.id}>{tag.name}</option>
+                                        )
+                                    })}
+                                </select>
+                            </li>
+                            <li className="nav-item">
+                                {renderAddBlog()}
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div className="row justify-content-md-center">
+                    <div className="header font-wick col-md-12 p-2">
+                        <p className="text-center  mb-4">Our Crazy Life!</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        // </div>
     );
 }
 

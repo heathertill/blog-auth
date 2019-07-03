@@ -8,7 +8,7 @@ const About: React.SFC<AboutProps> = () => {
         <div className="row justify-content-center">
             <div className="col-ms-10">
                 <div className="card ">
-                    <div className="card-body">
+                    <div className="card-body font-open">
                         <div className="card-title aboutdiv">About this Blog:</div>
                         <p className="card-text">This blog was created by Heather Till.</p>
                         <div className="card-title aboutdiv">Support provided by:</div>

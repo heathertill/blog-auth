@@ -28,7 +28,7 @@ const Admin: React.SFC<AdminProps> = ({ history, match }) => {
     useEffect(() => { getBlog() }, []);
 
     const renderEdit = () => {
-        if (isAllowed === true) {
+        if (isAllowed) {
             return  <button onClick={handleEdit} className="btn btn-info m-2">Edit</button>
         } else {
             return  <button onClick={() => history.replace('/')} className="btn btn-info m-2">Go Back</button>

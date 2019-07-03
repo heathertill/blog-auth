@@ -17,8 +17,7 @@ const Login: React.SFC<LoginProps> = ({ history }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [alert, setAlert] = useState(null);
-    const [loggingIn, setLoggingIn] = useState(false);
+    const [loginStatus, setLoginStatus] = useState(true);
 
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -31,24 +30,30 @@ const Login: React.SFC<LoginProps> = ({ history }) => {
             if (result) {
                 SetAccessToken(result.token, { userid: result.userid, role: result.role })
                 if (result.role === 'admin') {
-                    history.push('/');
-                } else {
+                    setLoginStatus(true)
                     history.push('/');
                 }
             } else {
-                // checking a login status
+                console.log('ioops')
+                setLoginStatus(false)
             }
         } catch (err) {
             throw err
         }
     };
-    
+
+    const notAllowed = () => {
+        if (!loginStatus) {
+            return <div className="alert alert-danger p-1 m-3">Invalid Credentials</div>
+        }
+    }
+
     return (
         <main className="container">
             <section className="row justify-content-center">
                 <div className="col-md-8">
                     <form
-                        className="form-group bck-gradient border border-primary rounded shadow-lg mb-0 p-3"
+                        className="form-group font-open bck-gradient border border-primary rounded shadow-lg mb-0 p-3"
                         onSubmit={(e) => handleLogin(e)}>
                         <label htmlFor="email">Email</label>
                         <input
@@ -61,6 +66,7 @@ const Login: React.SFC<LoginProps> = ({ history }) => {
                         <button
                             type="submit"
                             className="btn btn-primary btn-outline-light mt-3">Login</button>
+                        {notAllowed()}
                     </form>
                 </div>
             </section>

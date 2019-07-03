@@ -1,15 +1,27 @@
 $theme-colors: (
-    "success": rgba(211, 223, 219, 1),
-    "warning": rgba(236, 216, 177, 1),
-    "info": rgba(58, 161, 63, 0.87),
-    "primary": darkgrey
+    'success': rgba(211, 223, 219, 1),
+    'warning': rgba(236, 216, 177, 1),
+    'info': rgba(58, 161, 63, 0.87),
+    'primary': darkgrey
 );
 
 @import '../../../node_modules/bootstrap/scss/bootstrap.scss';
 
+$font-raj: 'Rajdhani', sans-serif;
+$font-news: 'News Cycle', sans-serif;
+
 $font-head: 'Sedgwick Ave', cursive;
 
 $font-title: 'Loved by the King', cursive;
+
+.font-wick {
+    font-family: 'Sedgwick Ave', cursive;
+    // font-size: 1.8em;
+}
+.font-open {
+    font-family: 'Open Sans', sans-serif;
+}
+
 
 .covalence-blue {
     color: #0091ea;
@@ -27,7 +39,11 @@ $font-title: 'Loved by the King', cursive;
     position: absolute;
     z-index: 1;
     font-size: 1.8em;
-    font-family: $font-title;
+    // font-family: $font-title;
+}
+
+.card-img-top {
+    height: 29%;
 }
 
 .blog-title-img {
@@ -38,24 +54,21 @@ $font-title: 'Loved by the King', cursive;
 
 body {
     background: url('https://i2.wp.com/background4free.com/download/white_textile_wallpaper_427466034.jpg?q=100');
-   
 }
 .header {
     font-size: 5.2em;
-    font-family: $font-head;
+    // font-family: $font-head;
 }
 
 .blog-head {
-  color: white
+    color: white;
 }
 
 .aboutdiv {
-    font-size: 1.25em
+    font-size: 1.25em;
 }
 
-.card-title {
-   font-family: $font-title;
-}
+
 
 .show-card {
     height: 375px;
@@ -66,7 +79,7 @@ body {
 }
 
 .bck-gradient {
-    background-image: radial-gradient(white, rgba(236, 216, 177, 1))
+    background-image: radial-gradient(white, rgba(236, 216, 177, 1));
 }
 
 .blog-content {

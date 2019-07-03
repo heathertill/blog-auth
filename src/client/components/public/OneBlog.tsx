@@ -50,13 +50,15 @@ const OneBlog: React.FC<OneBlogProps> = ({ history, match: { params: { id } } })
         <div className="row justify-content-center">
             <div className="col-md-10 mx-5">
                 <div className="card border border-dark rounded">
-                    <div className="card-body" key={blog.id}>
-                        <h3 className="card-title mb-0">{blog.title}</h3>
-                        <p className="card-text ml-2">by {blog.firstname}</p>
-                        <p className="card-text ml-2">{blog.content}</p>
-                        <p className="card-text ml-2">{moment(blog._created).format('MMMM Do, YYYY')}</p>
-                        <h4><span className="badge badge-info">{tag.name}</span></h4>
-                        <div>
+                    <div className="card-body font-open" key={blog.id}>
+                        <h2 className="card-title text-center mb-3">{blog.title}</h2>
+                        <div className="mx-4">
+                            <p className="card-text  ml-2">{blog.content}</p>
+                        <div className="card-text  ml-2 ">by {blog.firstname}</div>
+                        <p className="card-text  ml-2">{moment(blog._created).format('MMMM Do, YYYY')}</p>
+                            <h4><span className="badge badge-info">{tag.name}</span></h4>
+                            </div>
+                        <div className="card-footer">
                             {renderEdit()}
                             <button onClick={() => history.goBack()} className="btn btn-warning shadow btn-block mx-auto">Go Back</button>
                         </div>

@@ -51,46 +51,35 @@ class AddBlog extends React.Component<AddBlogProps, AddBlogState> {
 
     async handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
-
         if (this.saving) return;
 
+        let data = {
+            title: this.state.title,
+            content: this.state.content,
+            userid: User.userid
+        };
         try {
             this.saving = true;
-
-            if (User.userid) {
-                let data = {
-                    title: this.state.title,
-                    content: this.state.content,
-                    userid: User.userid
-                }
-                try {
-                    if (data.title && data.content) {
-                        let info = await json('/api/blogs', 'POST', data);
-                        this.setState({ blogid: info[0] });
-                        this.setState({
-                            title: '',
-                            content: '',
-                            saveStatus: 'success'
-                        })
-                        this.createBlogTags();
-                        // this.props.history.push('/');
-                    } else {
-                        this.setState({ saveStatus: 'error' })
-
-                        // this.props.history.replace('/')
-                    }
-                } catch (err) {
-                    this.setState({ saveStatus: 'error' });
-                    console.log('Must have name, title, and content', err)
-                } finally {
-                    this.saving = false;
-                }
-
+            
+            if (data.title && data.content) {
+                let info = await json('/api/blogs', 'POST', data);
+                this.setState({ blogid: info[0] });
+                this.setState({
+                    title: '',
+                    content: '',
+                    saveStatus: 'success'
+                });
+                this.createBlogTags();
+                // this.props.history.push('/');
             } else {
-                console.log('no userid');
+                this.setState({ saveStatus: 'error' });
+                // this.props.history.replace('/')
             }
         } catch (err) {
-            console.log(err)
+            this.setState({ saveStatus: 'error' });
+            throw err;
+        } finally {
+            this.saving = false;
         }
     };
 
@@ -105,15 +94,14 @@ class AddBlog extends React.Component<AddBlogProps, AddBlogState> {
 
     render() {
         if (this.state.saveStatus === 'success') {
-            return <button onClick={() => this.props.history.replace('/')} className="btn btn-info justify-content-center m-2">Blog Added!!! Back to All Blogs</button>
+            return <button onClick={() => this.props.history.replace('/')} className="btn btn-info d-flex justify-content-center m-2">Blog Added!!! Back to All Blogs</button>
         } else if (this.state.saveStatus === 'error') {
-            console.log('dong')
-            this.alert = <div className="alert alert-danger p-1 m-3">Oops! Something went wrong.  Please try again</div>
+            this.alert = <div className="alert alert-danger p-1 m-3">Oops! Something went wrong.  Please check all fields!</div>
         }
         return (
             <div className="row justify-content-center">
                 <div className="chirpInput card col-md-8 border p-3 mt-3">
-                    <div className="card-body">
+                    <div className="card-body font-open">
                         <form className="form-group mb-0 p-3">
                             <label className="mt-2" htmlFor="title">Title</label>
                             <input onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ title: e.target.value })}
