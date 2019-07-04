@@ -11,10 +11,7 @@ export const CreateToken = async (payload: IPayload) => {
     let token = await jwt.sign(payload, config.auth.secret);
     await queries.AccessTokens.update(payload.accesstokenid, token);
     return token;
-    
-    
 };
-
 
 export const ValidToken = async (token: string) => {
     // give jwt the IPayload generic so it can decode it into the kind of payload we need
@@ -28,27 +25,27 @@ export const ValidToken = async (token: string) => {
     } else {
         return payload;
     }
-}
+};
 
 // not currently used -- should be uesed in auth/login
 export const GenerateExpireDate = () => {
     let expireDate = new Date();
     expireDate.setDate(expireDate.getDate() + 30);
     return expireDate;
-}
+};
 
 // not currently used -- should be uesed in auth/login
 export const IsExpired = (expireDate: Date) => {
     let now = new Date();
     if (expireDate >= now) {
         return false;
-    } else { 
+    } else {
         return true;
     }
-}
+};
 
 export interface IPayload {
     [key: string]: any;
     userid: number;
     unique?: string;
-}
+};

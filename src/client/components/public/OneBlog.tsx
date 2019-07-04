@@ -39,10 +39,9 @@ const OneBlog: React.FC<OneBlogProps> = ({ history, match: { params: { id } } })
     };
     const renderEdit = () => {
         if (User && User.role === 'admin') {
-            
             return <Link className="btn btn-warning shadow btn-block mx-auto" to={`/${id}/admin`}>Options</Link>
         }
-    }
+    };
 
     useEffect(() => { getBlog() }, [id]);
 

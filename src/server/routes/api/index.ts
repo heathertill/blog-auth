@@ -21,7 +21,6 @@ router.use((req, res, next) => {
     })(req, res, next);
 });
 
-
 router.use('/blogs', blogsRouter);
 router.use('/allTags', allTagsRouter);
 router.use('/users', usersRouter);

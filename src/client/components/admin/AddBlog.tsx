@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-// import { User } from '../../utils/api';
 import { json, User } from '../../utils/api';
 // User object from localStorage - determines if user has something in localStorage(browser)
 // is it a token, is it a role, is it a userid validated from our backend authentication
@@ -47,7 +46,7 @@ class AddBlog extends React.Component<AddBlogProps, AddBlogState> {
         return this.state.tags.map(tag => {
             return <option value={tag.id} key={tag.id}>{tag.name}</option>
         })
-    }
+    };
 
     async handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
@@ -90,7 +89,7 @@ class AddBlog extends React.Component<AddBlogProps, AddBlogState> {
         } catch (err) {
             console.log(err)
         }
-    }
+    };
 
     render() {
         if (this.state.saveStatus === 'success') {

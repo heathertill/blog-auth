@@ -13,7 +13,6 @@ const isAdmin: RequestHandler = (req, res, next) => {
     }
 };
 
-
 router.get('/', async (req, res, next) => {
     try {
         let blogs = await queries.Blogs.all();
@@ -69,6 +68,5 @@ router.delete('/:id', async (req, res, next) => {
         res.sendStatus(500);
     }
 });
-
 
 export default router;

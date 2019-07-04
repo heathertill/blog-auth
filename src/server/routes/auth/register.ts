@@ -11,10 +11,8 @@ router.post('/', async (req, res, next) => {
     try {
         let user = req.body;
         req.user.password = HashPassword(req.body.password);
-        console.log('auth/reg/req.user.pass', req.user.password);
         let [result]: any = await queries.Users.insert(user);
         let token = await CreateToken({ userid: result.insertId });
-        console.log('auth/reg/token', token);
         res.json({
             token,
             role: 'guest',

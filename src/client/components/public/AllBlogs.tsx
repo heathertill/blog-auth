@@ -15,23 +15,20 @@ export interface Blog {
     userid: number
 }
 
-
 const AllBlogs: React.SFC<AllBlogsProps> = () => {
 
     const [blogs, setBlogs] = useState<Blog[]>([]);
 
     const getBlogs = async () => {
         try {
-            // let r = await fetch('api/blogs');
-            // let blogs = await r.json();
-            let blogs = await json('api/blogs');  // use with knex/json
+            let blogs = await json('api/blogs');
             setBlogs(blogs);
         } catch (err) {
             console.log(err)
         }
     };
 
-    useEffect(() => { getBlogs() }, [])
+    useEffect(() => { getBlogs() }, []);
 
     return (
         <>
@@ -53,7 +50,6 @@ const AllBlogs: React.SFC<AllBlogsProps> = () => {
                         </article>
                     )
                 })}
-
             </div>
         </>
     );

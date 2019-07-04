@@ -26,7 +26,7 @@ const Navbar: React.SFC<NavbarProps> = () => {
         if (User && User.role === 'admin') {
             return <Link className="text-white mr-3" to="/add">Add Blog</Link>
         }
-    }
+    };
 
     useEffect(() => { getTags(); renderAddBlog() }, []);
 

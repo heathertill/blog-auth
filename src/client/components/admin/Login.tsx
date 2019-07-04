@@ -19,7 +19,6 @@ const Login: React.SFC<LoginProps> = ({ history }) => {
     const [password, setPassword] = useState('');
     const [loginStatus, setLoginStatus] = useState(true);
 
-
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
@@ -34,7 +33,6 @@ const Login: React.SFC<LoginProps> = ({ history }) => {
                     history.push('/');
                 }
             } else {
-                console.log('ioops')
                 setLoginStatus(false)
             }
         } catch (err) {
@@ -46,7 +44,7 @@ const Login: React.SFC<LoginProps> = ({ history }) => {
         if (!loginStatus) {
             return <div className="alert alert-danger p-1 m-3">Invalid Credentials</div>
         }
-    }
+    };
 
     return (
         <main className="container">

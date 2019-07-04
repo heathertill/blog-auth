@@ -9,18 +9,16 @@ const Admin: React.SFC<AdminProps> = ({ history, match }) => {
 
     let id = match.params.id
 
-    const [blogUserId, setBlogUserId] = useState('');
     const [blogTitle, setBlogTitle] = useState('');
     const [blogContent, setBlogContent] = useState('');
     const [isAllowed, setIsAllowed] = useState(false);
-
 
     const getBlog = async () => {
         let blog = await json(`/api/blogs/${id}`);
         setBlogTitle(blog.title);
         setBlogContent(blog.content);
-        setBlogUserId(blog.userid);
         if (User.userid == blog.userid) {
+            console.log(User.userid, '***', blog.userid)
             setIsAllowed(true);
         }
     }
@@ -29,28 +27,29 @@ const Admin: React.SFC<AdminProps> = ({ history, match }) => {
 
     const renderEdit = () => {
         if (isAllowed) {
-            return  <button onClick={handleEdit} className="btn btn-info m-2">Edit</button>
+            return <button onClick={handleEdit} className="btn btn-info m-2">Edit</button>
         } else {
-            return  <button onClick={() => history.replace('/')} className="btn btn-info m-2">Go Back</button>
+            return <button onClick={() => history.replace('/')} className="btn btn-info m-2">Go Back</button>
         }
-}
+    };
+
     const handleEdit = async () => {
-            let data = {
-                title: blogTitle,
-                content: blogContent,
-            }
-            try {
-                await fetch(`/api/blogs/${id}`, {
-                    method: 'PUT',
-                    body: JSON.stringify(data),
-                    headers: {
-                        "Content-type": "application/json"
-                    }
-                })
-                history.replace('/')
-            } catch (err) {
-                console.log(err)
-            }
+        let data = {
+            title: blogTitle,
+            content: blogContent,
+        }
+        try {
+            await fetch(`/api/blogs/${id}`, {
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-type": "application/json"
+                }
+            })
+            history.replace('/')
+        } catch (err) {
+            console.log(err)
+        }
     };
 
     const handleDelete = async () => {

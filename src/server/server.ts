@@ -14,7 +14,7 @@ let p = path.join(__dirname, '../public');
 console.log(p);
 
 app.use(express.static(p));
-// express.json parsed the req.body
+// express.json parses the req.body
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(passport.initialize());
