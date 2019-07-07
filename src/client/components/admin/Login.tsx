@@ -41,7 +41,6 @@ const Login: React.SFC<LoginProps> = ({ history }) => {
     };
 
     const notAllowed = () => {
-        console.log('loginstatus', loginStatus)
         if (!loginStatus) {
             return <div className="alert alert-danger p-1 m-3">Invalid Credentials</div>
         }
