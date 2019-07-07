@@ -9,10 +9,7 @@ const Login: React.SFC<LoginProps> = ({ history }) => {
 
     const isLoggedIn = async () => {
         if (User && User.role === 'admin') {
-            console.log('is logged in')
             history.push('/')
-        } else {
-            console.log('nope')
         }
     };
 
@@ -29,21 +26,13 @@ const Login: React.SFC<LoginProps> = ({ history }) => {
                 email,
                 password
             });
-            console.log('result.role', result.role)
             if (result) {
                 SetAccessToken(result.token, { userid: result.userid, role: result.role })
                 if (result.role === 'admin') {
-                    console.log('logstat1', loginStatus)
                     setLoginStatus(true);
-                    console.log('logstat2', loginStatus)
-                    console.log('admin')
                     history.push('/');
                 } else if (result.role === 'guest') {
-                    console.log('logstat3', loginStatus);
-                    // setLoginStatus(false);
-                    console.log('logstat4', loginStatus);
-                    console.log('guest');
-                    history.push('/');
+                    setLoginStatus(false);
                 }
             } 
         } catch (err) {
@@ -52,6 +41,7 @@ const Login: React.SFC<LoginProps> = ({ history }) => {
     };
 
     const notAllowed = () => {
+        console.log('loginstatus', loginStatus)
         if (!loginStatus) {
             return <div className="alert alert-danger p-1 m-3">Invalid Credentials</div>
         }
