@@ -9,12 +9,14 @@ const router = express.Router();
 router.post('/', passport.authenticate('local'), async (req, res, next) => {
 
     try {
+        console.log('auth/login', req.user.id)
         let token = await CreateToken({ userid: req.user.id });
         res.json({
             token,
             role: req.user.role,
             userid: req.user.id
         });
+        // console.log('auth/login', token)
     } catch (err) {
         console.log(err);
         res.sendStatus(500)

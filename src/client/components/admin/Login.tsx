@@ -9,7 +9,10 @@ const Login: React.SFC<LoginProps> = ({ history }) => {
 
     const isLoggedIn = async () => {
         if (User && User.role === 'admin') {
+            console.log('is logged in')
             history.push('/')
+        } else {
+            console.log('nope')
         }
     };
 
@@ -26,15 +29,23 @@ const Login: React.SFC<LoginProps> = ({ history }) => {
                 email,
                 password
             });
+            console.log('result.role', result.role)
             if (result) {
                 SetAccessToken(result.token, { userid: result.userid, role: result.role })
                 if (result.role === 'admin') {
-                    setLoginStatus(true)
+                    console.log('logstat1', loginStatus)
+                    setLoginStatus(true);
+                    console.log('logstat2', loginStatus)
+                    console.log('admin')
+                    history.push('/');
+                } else if (result.role === 'guest') {
+                    console.log('logstat3', loginStatus);
+                    // setLoginStatus(false);
+                    console.log('logstat4', loginStatus);
+                    console.log('guest');
                     history.push('/');
                 }
-            } else {
-                setLoginStatus(false)
-            }
+            } 
         } catch (err) {
             throw err
         }

@@ -18,7 +18,6 @@ const Admin: React.SFC<AdminProps> = ({ history, match }) => {
         setBlogTitle(blog.title);
         setBlogContent(blog.content);
         if (User.userid == blog.userid) {
-            console.log(User.userid, '***', blog.userid)
             setIsAllowed(true);
         }
     }
@@ -76,7 +75,7 @@ const Admin: React.SFC<AdminProps> = ({ history, match }) => {
                         className="form-control mb-3" type="text" value={blogTitle} />
                     <label htmlFor="blogContent m-0">Content</label>
                     <textarea onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setBlogContent(e.target.value)}
-                        className="form-control mb-3" value={blogContent} rows={5} />
+                        className="form-control mb-3" value={blogContent} rows={8} />
                     <div>
                         {renderEdit()}
                         <button
