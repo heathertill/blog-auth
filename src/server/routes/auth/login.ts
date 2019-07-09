@@ -5,9 +5,8 @@ import { CreateToken } from '../../utils/security/tokens';
 
 const router = express.Router();
 
-// passport.authenticate('local') will authenticate the user for us
+// used as middleware(similar to the isAdmin in blogsRouter) - passport.authenticate('local') will authenticate the user for us
 router.post('/', passport.authenticate('local'), async (req, res, next) => {
-
     try {
         let token = await CreateToken({ userid: req.user.id });
         res.json({

@@ -1,17 +1,8 @@
 import { Router } from 'express';
 import queries from '../../db';
-import { RequestHandler } from 'express-serve-static-core';
+import { isAdmin } from '../../utils/routerMiddleware'
 
 const router = Router();
-
-// middleware to check your req object for a user property or a specific role on that property
-const isAdmin: RequestHandler = (req, res, next) => {
-    if (!req.user || req.user.role !== 'admin') {
-        return res.sendStatus(401)
-    } else {
-        return next();
-    }
-};
 
 router.get('/', async (req, res, next) => {
     try {

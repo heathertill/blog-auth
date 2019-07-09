@@ -1,5 +1,6 @@
 import * as express from 'express';
-import * as passport from 'passport';
+
+import {checkToken } from '../../utils/routerMiddleware';
 
 import blogsRouter from './blogs';
 import allTagsRouter from './allTags';
@@ -8,18 +9,10 @@ import tagsRouter from './tags';
 
 const router = express.Router();
 
-// this needs to be above all other routers to verify
-router.use((req, res, next) => {
-    passport.authenticate('bearer', { session: false }, (err, user, info) => {
-        if (user) {
-            req.user = user
-            return next();
-        } else {
-            return next();
-        }
-        
-    })(req, res, next);
-});
+// middleware -  this needs to be above all other routers to verify
+// with this placed here it checks all api endpoints for token,
+// not needed in auth/routes as they aren't authenticated yet
+router.use(checkToken);
 
 router.use('/blogs', blogsRouter);
 router.use('/allTags', allTagsRouter);

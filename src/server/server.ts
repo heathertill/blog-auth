@@ -3,6 +3,7 @@ import * as express from 'express';
 import * as passport from 'passport';
 import * as morgan from 'morgan';
 
+// these need to be imported where you initialize passport as middleware
 import './middleware/localstrategy';
 import './middleware/bearerstrategy';
 
@@ -17,6 +18,7 @@ app.use(express.static(p));
 // express.json parses the req.body
 app.use(express.json());
 app.use(morgan('dev'));
+// passport needs to be somewhere above app.use(routes);
 app.use(passport.initialize());
 
 app.use(routes);

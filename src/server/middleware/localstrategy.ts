@@ -11,12 +11,15 @@ passport.deserializeUser((user, done) => done(null, user));
 
 passport.use(new LocalStrategy.Strategy({
     usernameField: 'email',
+    // session: false is meant for cookies, uses session tokens, etc and would be set to true to use
     session: false
-}, // email and password are provided by the user at login on frontend
+}, // email and password are provided by the user at login on frontend. done returns the next step
     async (email, password, done) => {
         try {
             let [user]: any = await queries.Users.findOneByEmail(email);
             if (user && ComparePassword(password, user.password)) {
+                // another layer of security
+                delete user.password;
                 done(null, user);
             } else {
                 done(null, false);
