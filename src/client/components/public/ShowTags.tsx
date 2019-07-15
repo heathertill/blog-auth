@@ -12,13 +12,13 @@ const ShowTags: React.SFC<ShowTagsProps> = (props) => {
     const [blogs, setBlogs] = useState<Blog[]>([])
 
     const getBlog = async () => {
-        let id = props.match.params.id
-        try {
-            let blogs = await json(`/api/alltags/${id}`);
-            setBlogs(blogs)
-        } catch (err) {
-            console.log(err)
-        }
+        let id = props.match.params.id;
+            try {
+                let blogs = await json(`/api/alltags/${id}`);
+                setBlogs(blogs)
+            } catch (err) {
+                console.log(err)
+            }
     }
 
     useEffect(() => { getBlog() }, [props.match.params.id]);

@@ -7,7 +7,7 @@ export interface LoginProps extends RouteComponentProps { }
 
 const Login: React.SFC<LoginProps> = ({ history }) => {
 
-    const isLoggedIn = async () => {
+    const isLoggedIn = () => {
         if (User && User.role === 'admin') {
             history.push('/')
         }
@@ -60,7 +60,7 @@ const Login: React.SFC<LoginProps> = ({ history }) => {
                         <label htmlFor="password">Password</label>
                         <input
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                            type="text" name="password" className="form-control" value={password} />
+                            type="password" name="password" className="form-control" value={password} />
                         <button
                             type="submit"
                             className="btn btn-primary btn-outline-light mt-3">Login</button>

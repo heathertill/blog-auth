@@ -2,7 +2,7 @@ import * as passport from 'passport';
 import { RequestHandler } from 'express-serve-static-core';
 
 // looks for a token and adds req.user if there is one
-export const checkToken = (req, res, next) => {
+export const checkToken = (req:any, res:any, next:any) => {
     passport.authenticate('bearer', { session: false }, (err, user, info) => {
         if (user) {
             req.user = user

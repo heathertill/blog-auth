@@ -30,10 +30,10 @@ const Navbar: React.SFC<NavbarProps> = () => {
 
     useEffect(() => { getTags(); renderAddBlog() }, []);
 
-    const [id, setid] = useState(undefined);
+    const [id, setId] = useState(undefined);
 
     function handleSelect(e: React.ChangeEvent<HTMLSelectElement>) {
-        setid(e.target.value)
+        setId(e.target.value)
         if (e.target.value === "0") {
             return;
         } else {
